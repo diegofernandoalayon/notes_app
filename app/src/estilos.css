@@ -1,0 +1,10 @@
+body{
+    --dot-size: 1px;
+    --dot-space: 22px;
+    background: linear-gradient( 
+        90deg, #000 21px, transparent 1% ) 50%, linear-gradient(#000 21px,transparent 1%) 50%, #209bb9;
+    background-size: var(--dot-space) var(--dot-space);
+}
+.cont{
+    background-color: rgb(90, 170, 223);
+}

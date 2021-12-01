@@ -1,0 +1,22 @@
+POST http://localhost:3001/api/notes  HTTP/1.1
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODJiNjExNmJmMGFkZjlmNjQ5YzllOSIsInVzZXJuYW1lIjoiZGZhciIsImlhdCI6MTYzNjAzODU0MCwiZXhwIjoxNjM2NjQzMzQwfQ.6ZY0yHXhQGBPSamW4yBYYjoCrSeXr6edwKjJr3e1Uaw
+
+{
+    "content":"sin userId prueba",
+    "important":true
+}
+###
+
+POST http://localhost:55200/test HTTP/1.1
+content-type: application/json
+
+{
+    "cname": "weile"
+}
+###
+POST http://localhost:55200/test HTTP/1.1
+content-type: application/json
+{
+    "cname": "weile"
+}
