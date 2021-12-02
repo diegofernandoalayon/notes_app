@@ -8,7 +8,8 @@ const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 app.use(cors())
 app.use(express.json())
-app.use('/cosas', express.static(__dirname)) // __dirname es una env que indica la ruta absoluta que contiene el archivo que se esta ejecutando
+app.use(express.static('../app/build'))
+// app.use('/cosas', express.static(__dirname)) // __dirname es una env que indica la ruta absoluta que contiene el archivo que se esta ejecutando
 const path = require('path')
 const notFound = require('./middleware/notFound.js')
 const handleErrors = require('./middleware/handleErrors.js')
