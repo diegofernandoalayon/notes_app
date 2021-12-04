@@ -1,6 +1,6 @@
 import axios from 'axios'
 // const baseUrl='https://immense-cove-52767.herokuapp.com/api/notes'
-const baseUrl = 'http://localhost:3001/api/notes'
+const baseUrl = '/api/notes'
 
 let token = null
 const setToken = newToken => {

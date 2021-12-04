@@ -38,5 +38,6 @@
     "cypress": "^9.1.0",
     
     "standard": "^16.0.4"
-  }
+  },
+  "proxy":"http://localhost:3001"
 }
