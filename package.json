@@ -14,6 +14,7 @@
   "scripts": {
     "build": "npm run build --workspace=app",
     "start": "npm run start --workspace=api",
+    "dev:app": "npm run start --workspace=app",
     "dev:api": "npm run build && npm run dev --workspaces=api"
   },
   "eslintConfig": {
