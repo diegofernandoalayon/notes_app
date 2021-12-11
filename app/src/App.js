@@ -23,7 +23,7 @@ const App = () => {
       </header>
 
       <Routes>
-
+        <Route path='/notes/:id' element={<h1>single note</h1>} />
         <Route path='/' element={<Home />} />
         <Route path='/notes' element={<Notes />} />
         <Route path='/users' element={<Users />} />
