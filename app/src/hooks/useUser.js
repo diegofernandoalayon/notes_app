@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import noteService from '../services/notes'
+import noteService from '../services/notes.js'
+import loginService from '../services/login.js'
 export const useUser = () => {
   const [user, setUser] = useState(null)
   useEffect(() => {
@@ -10,8 +11,26 @@ export const useUser = () => {
       noteService.setToken(user.token)
     }
   }, [])
-
+  const logout = () => {
+    window.localStorage.removeItem('loggedNoteAppUser')
+    setUser(null)
+    noteService.setToken(user.token)
+  }
+  const login = ({ username, password }) => {
+    return loginService.login({
+      username,
+      password
+    }).then((user) => {
+      window.localStorage.setItem(
+        'loggedNoteAppUser', JSON.stringify(user)
+      )
+      noteService.setToken(user.token)
+      setUser(user) // del custom hook
+    })
+  }
   return {
-    user
+    user,
+    logout,
+    login
   }
 }
