@@ -6,6 +6,7 @@ import { NoteDetail } from './components/NoteDetail.js'
 import Login from './Login.js'
 import Notes from './Notes'
 import noteService from './services/notes'
+import { useUser } from './hooks/useUser'
 
 const Home = () => <h1>Home Page</h1>
 
@@ -18,7 +19,7 @@ const inlineStyle = {
 
 const App = () => {
   const [notes, setNotes] = useState([])
-  const [user, setUser] = useState(null)
+  const { user } = useUser()
 
   useEffect(() => {
     noteService
@@ -28,14 +29,7 @@ const App = () => {
         // setLoading(false)
       })
   }, [])
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      noteService.setToken(user.token)
-    }
-  }, [])
+
   const Islogged = () => {
     return user ? <Navigate to='/' /> : <Login />
   }
