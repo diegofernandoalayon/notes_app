@@ -18,6 +18,7 @@ const inlineStyle = {
 
 const App = () => {
   const [notes, setNotes] = useState([])
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     // setLoading(true)
@@ -29,7 +30,15 @@ const App = () => {
         // setLoading(false)
       })
   }, [])
-
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      noteService.setToken(user.token)
+    }
+  }, [])
+  console.log(user)
   return (
     <BrowserRouter>
 
@@ -38,7 +47,16 @@ const App = () => {
         <Link to='/' style={inlineStyle}>Home</Link>
         <Link to='/notes' style={inlineStyle}>Notes</Link>
         <Link to='/users' style={inlineStyle}>Users</Link>
-        <Link to='/login' style={inlineStyle}>Login</Link>
+
+        {
+          user
+            ? <em>Logged as {user.name}</em>
+            : (
+              <Link to='/login' style={inlineStyle}>
+                Login
+              </Link>
+              )
+        }
       </header>
 
       <Routes>
