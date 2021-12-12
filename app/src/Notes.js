@@ -9,27 +9,29 @@ import loginService from './services/login'
 // import './estilos.css'
 import './index.css'
 import FormLogin from './components/FormLogin'
+import { useNotes } from './hooks/useNotes'
 // import Toggleable from './components/Toggleable'
 
-const App = () => {
-  const [notes, setNotes] = useState([])
-  const [loading, setLoading] = useState(false)
+const Notes = () => {
+  const { notes, addNote, toggleImportanceOf } = useNotes()
+  // const [notes, setNotes] = useState([])
+  // const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    setLoading(true)
+  // useEffect(() => {
+  //   setLoading(true)
 
-    noteService
-      .getAllNotes().then((data) => {
-      // console.log(data)
-        setNotes(data)
-        setLoading(false)
-      })
-  }, [])
+  //   noteService
+  //     .getAllNotes().then((data) => {
+  //     // console.log(data)
+  //       setNotes(data)
+  //       setLoading(false)
+  //     })
+  // }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser')
@@ -40,29 +42,6 @@ const App = () => {
     }
   }, [])
 
-  const addNote = (noteObject) => {
-    // const {token} = user
-    noteService
-      .createNote(noteObject)
-      .then((data) => {
-        setNotes(prevNotes => prevNotes.concat(data))
-        // setNewNote('')
-      }).catch(error => {
-        console.error(error)
-        setError('La API fallo')
-      })
-  }
-  const toggleImportanceOf = (id) => {
-    const note = notes.find(n => n.id === id)
-    const changedNote = { ...note, important: !note.important }
-
-    noteService
-      .updateNote(id, changedNote)
-      .then(returnedNote => {
-        setNotes(notes.map(note => note.id !== id ? note : returnedNote))
-      })
-    // console.log(changedNote)
-  }
   const handleLoginSubmit = (event) => {
     event.preventDefault()
     loginService.login({
@@ -91,12 +70,24 @@ const App = () => {
     setUser(null)
     noteService.setToken(user.token)
   }
+  const toggleImportanceOfNote = (id) => {
+    toggleImportanceOf(id)
+      .catch(() => {
+        setError('Note \'a\' was already removed from server')
+      })
+  }
+  const addNotee = (noteObject) => {
+    addNote(noteObject)
+      .catch(error => {
+        console.error(error)
+        setError('La API fallo')
+      })
+  }
 
   return (
     <div>
       <h1>Notes</h1>
-      {loading ? 'cargando...' : ''}
-      {/* {error ? error:''} */}
+
       <Notification message={error} />
       {
         user
@@ -105,7 +96,7 @@ const App = () => {
       }
       {
         user
-          ? <FormNote addNote={addNote} />
+          ? <FormNote addNote={addNotee} />
           : <FormLogin
               username={username}
               password={password}
@@ -117,7 +108,7 @@ const App = () => {
 
       <ol>
         {notes.map(note => (
-          <Note key={note.id} toggleImportance={() => toggleImportanceOf(note.id)} {...note} />
+          <Note key={note.id} toggleImportance={() => toggleImportanceOfNote(note.id)} {...note} />
         ))}
       </ol>
 
@@ -125,4 +116,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Notes
