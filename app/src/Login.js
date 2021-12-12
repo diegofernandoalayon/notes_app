@@ -3,15 +3,18 @@ import FormLogin from './components/FormLogin'
 import loginService from './services/login'
 import noteService from './services/notes'
 import Notification from './components/Notification'
+import { useNavigate } from 'react-router-dom'
 
-export const Login = () => {
+export default function Login () {
+  const navigate = useNavigate()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
   console.log(user)
-  console.log(errorMessage)
+
   const handleUsernameChange = (event) => {
     setUsername(event.target.value)
   }
@@ -31,6 +34,7 @@ export const Login = () => {
       setUser(user)
       setUsername('')
       setPassword('')
+      navigate('/notes')
     }).catch(() => {
       setErrorMessage('Wrong credentials')
       setUsername('')

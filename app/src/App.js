@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link, BrowserRouter, Route, Routes } from 'react-router-dom'
 // import FormLogin from './components/FormLogin/index.js'
 import { NoteDetail } from './components/NoteDetail.js'
-import { Login } from './Login.js'
+import Login from './Login.js'
 import Notes from './Notes'
 import noteService from './services/notes'
 
