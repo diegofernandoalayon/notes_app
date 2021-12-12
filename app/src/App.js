@@ -1,12 +1,13 @@
 // import { useState } from 'react'
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 import { Link, BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 // import FormLogin from './components/FormLogin/index.js'
 import { NoteDetail } from './components/NoteDetail.js'
 import Login from './Login.js'
 import Notes from './Notes'
-import noteService from './services/notes'
+// import noteService from './services/notes'
 import { useUser } from './hooks/useUser'
+import { useNotes } from './hooks/useNotes'
 
 const Home = () => <h1>Home Page</h1>
 
@@ -18,17 +19,8 @@ const inlineStyle = {
 }
 
 const App = () => {
-  const [notes, setNotes] = useState([])
   const { user } = useUser()
-
-  useEffect(() => {
-    noteService
-      .getAllNotes().then((data) => {
-      // console.log(data)
-        setNotes(data)
-        // setLoading(false)
-      })
-  }, [])
+  const { notes } = useNotes()
 
   const Islogged = () => {
     return user ? <Navigate to='/' /> : <Login />
