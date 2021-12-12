@@ -1,6 +1,6 @@
 // import { useState } from 'react'
 import { useEffect, useState } from 'react'
-import { Link, BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Link, BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 // import FormLogin from './components/FormLogin/index.js'
 import { NoteDetail } from './components/NoteDetail.js'
 import Login from './Login.js'
@@ -21,8 +21,6 @@ const App = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    // setLoading(true)
-
     noteService
       .getAllNotes().then((data) => {
       // console.log(data)
@@ -38,7 +36,9 @@ const App = () => {
       noteService.setToken(user.token)
     }
   }, [])
-  console.log(user)
+  const Islogged = () => {
+    return user ? <Navigate to='/' /> : <Login />
+  }
   return (
     <BrowserRouter>
 
@@ -62,9 +62,14 @@ const App = () => {
       <Routes>
         <Route path='/notes/:noteId' element={<NoteDetail notes={notes} />} />
         <Route path='/' element={<Home />} />
-        <Route path='/notes' element={<Notes />} />
+        <Route
+          path='/notes' element={<Notes />}
+        />
         <Route path='/users' element={<Users />} />
-        <Route path='/login' element={<Login />} />
+        <Route
+          path='/login' element={<Islogged />}
+
+        />
         <Route path='/*' element={<h1>no disponible</h1>} />
       </Routes>
 
