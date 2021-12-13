@@ -5,40 +5,56 @@ import noteService from './services/notes'
 import Notification from './components/Notification'
 import { useNavigate } from 'react-router-dom'
 
+const useField = ({ type }) => {
+  const [value, setValue] = useState('')
+  const onChange = event => {
+    setValue(event.target.value)
+  }
+  return {
+    type,
+    value,
+    onChange
+  }
+}
+
 export default function Login () {
+  const username = useField({ type: 'text' })
+  const password = useField({ type: 'password' })
+
   const navigate = useNavigate()
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  // const [username, setUsername] = useState('')
+  // const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
-  console.log(user)
-
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value)
-  }
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
-  }
+  // const handleUsernameChange = (event) => {
+  //   setUsername(event.target.value)
+  // }
+  // const handlePasswordChange = (event) => {
+  //   setPassword(event.target.value)
+  // }
   const handleSubmit = (event) => {
     event.preventDefault()
+    const valueU = username.value
+    const valueP = password.value
     loginService.login({
-      username,
-      password
+      username: valueU,
+      password: valueP
     }).then((user) => {
+      console.log('paso aca')
       window.localStorage.setItem(
         'loggedNoteAppUser', JSON.stringify(user)
       )
       noteService.setToken(user.token)
       setUser(user)
-      setUsername('')
-      setPassword('')
+      // setUsername('')
+      // setPassword('')
       navigate('/notes')
     }).catch(() => {
       setErrorMessage('Wrong credentials')
-      setUsername('')
-      setPassword('')
+      // setUsername('')
+      // setPassword('')
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
@@ -55,8 +71,8 @@ export default function Login () {
         username={username}
         password={password}
         handleLoginSubmit={handleSubmit}
-        handlePasswordChange={handlePasswordChange}
-        handleUsernameChange={handleUsernameChange}
+        // handlePasswordChange={handlePasswordChange}
+        // handleUsernameChange={handleUsernameChange}
       />
     </div>
   )

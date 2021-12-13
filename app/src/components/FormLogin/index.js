@@ -3,26 +3,29 @@
 import Toggleable from '../Toggleable'
 import PropTypes from 'prop-types'
 // import { useState } from 'react'
+
 export default function FormLogin ({ username, password, handleLoginSubmit, ...props }) {
   return (
     <Toggleable buttonLabel='Show login'>
       <form onSubmit={handleLoginSubmit}>
         <div>
           <input
-            type='text'
-            value={username}
+            // type='text'
+            // value={username}
+            // onChange={props.handleUsernameChange}
+            {...username}
             name='Username'
             placeholder='Username'
-            onChange={props.handleUsernameChange}
           />
         </div>
         <div>
           <input
-            type='password'
-            value={password}
+            // type='password'
+            // value={password}
+            // onChange={props.handlePasswordChange}
+            {...password}
             name='password'
             placeholder='Password'
-            onChange={props.handlePasswordChange}
           />
         </div>
         <button id='form-login-button'>

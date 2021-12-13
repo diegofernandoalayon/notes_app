@@ -8,35 +8,36 @@ import Note from './components/Note/Note'
 
 // import './estilos.css'
 import './index.css'
-import FormLogin from './components/FormLogin'
+// import FormLogin from './components/FormLogin'
 import { useNotes } from './hooks/useNotes'
 import { useUser } from './hooks/useUser'
+import Login from './Login'
 // import Toggleable from './components/Toggleable'
 
 const Notes = () => {
   const { notes, addNote, toggleImportanceOf } = useNotes()
-  const { user, logout, login } = useUser()
+  const { user, logout } = useUser()
   // const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  // const [username, setUsername] = useState('')
+  // const [password, setPassword] = useState('')
 
-  const handleLoginSubmit = (event) => {
-    event.preventDefault()
-    login({ username, password }) // del hook useUser
-      .then(() => {
-        setUsername('')
-        setPassword('')
-      }).catch(() => {
-        setError('Wrong credentials')
-        setUsername('')
-        setPassword('')
-        setTimeout(() => {
-          setError(null)
-        }, 5000)
-      })
-  }
+  // const handleLoginSubmit = (event) => {
+  //   event.preventDefault()
+  //   login({ username, password }) // del hook useUser
+  //     .then(() => {
+  //       setUsername('')
+  //       setPassword('')
+  //     }).catch(() => {
+  //       setError('Wrong credentials')
+  //       setUsername('')
+  //       setPassword('')
+  //       setTimeout(() => {
+  //         setError(null)
+  //       }, 5000)
+  //     })
+  // }
 
   const toggleImportanceOfNote = (id) => {
     toggleImportanceOf(id)
@@ -65,13 +66,7 @@ const Notes = () => {
       {
         user
           ? <FormNote addNote={addNotee} />
-          : <FormLogin
-              username={username}
-              password={password}
-              handleLoginSubmit={handleLoginSubmit}
-              handleUsernameChange={({ target }) => setUsername(target.value)}
-              handlePasswordChange={({ target }) => setPassword(target.value)}
-            />
+          : <Login />
       }
 
       <ol>
