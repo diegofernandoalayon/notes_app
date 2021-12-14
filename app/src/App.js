@@ -27,14 +27,14 @@ const App = () => {
   }
   return (
     <BrowserRouter>
+      <div className='container'>
+        <header>
 
-      <header>
+          <Link to='/' style={inlineStyle}>Home</Link>
+          <Link to='/notes' style={inlineStyle}>Notes</Link>
+          <Link to='/users' style={inlineStyle}>Users</Link>
 
-        <Link to='/' style={inlineStyle}>Home</Link>
-        <Link to='/notes' style={inlineStyle}>Notes</Link>
-        <Link to='/users' style={inlineStyle}>Users</Link>
-
-        {
+          {
           user
             ? <em>Logged as {user.name}</em>
             : (
@@ -43,21 +43,21 @@ const App = () => {
               </Link>
               )
         }
-      </header>
+        </header>
 
-      <Routes>
-        <Route path='/notes/:noteId' element={<NoteDetail notes={notes} />} />
-        <Route path='/' element={<Home />} />
-        <Route
-          path='/notes' element={<Notes />}
-        />
-        <Route path='/users' element={<Users />} />
-        <Route
-          path='/login' element={<Islogged />}
-
-        />
-        <Route path='/*' element={<h1>no disponible</h1>} />
-      </Routes>
+        <Routes>
+          <Route path='/notes/:noteId' element={<NoteDetail notes={notes} />} />
+          <Route path='/' element={<Home />} />
+          <Route
+            path='/notes' element={<Notes />}
+          />
+          <Route path='/users' element={<Users />} />
+          <Route
+            path='/login' element={<Islogged />}
+          />
+          <Route path='/*' element={<h1>no disponible</h1>} />
+        </Routes>
+      </div>
 
     </BrowserRouter>
   )

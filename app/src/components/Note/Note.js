@@ -5,10 +5,10 @@ export default function Note ({ content, important, toggleImportance, ...props }
     ? 'make not important'
     : 'make important'
   return (
-    <li>
+    <div>
       <Link to={`/notes/${props.id}`}>{content}</Link>
       <small><strong>{String(important)}</strong></small>
       <button onClick={toggleImportance}>{label}</button>
-    </li>
+    </div>
   )
 }
