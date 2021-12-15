@@ -71,14 +71,13 @@ const Notes = () => {
           : <Login />
       }
 
-      <Table>
+      <Table striped>
         <tbody>
 
           {notes.map(note => (
             <tr key={note.id}>
-              <td>
-                <Note toggleImportance={() => toggleImportanceOfNote(note.id)} {...note} />
-              </td>
+
+              <Note toggleImportance={() => toggleImportanceOfNote(note.id)} {...note} />
 
             </tr>
           ))}

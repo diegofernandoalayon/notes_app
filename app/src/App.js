@@ -8,6 +8,7 @@ import Notes from './Notes'
 // import noteService from './services/notes'
 import { useUser } from './hooks/useUser'
 import { useNotes } from './hooks/useNotes'
+import { Nav, Navbar } from 'react-bootstrap'
 
 const Home = () => <h1>Home Page</h1>
 
@@ -28,22 +29,35 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className='container'>
-        <header>
+        <Navbar collapseOnSelect expand='lg'>
+          <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+          <Navbar.Collapse>
+            <Nav>
+              <Nav.Link>
+                <Link to='/' style={inlineStyle}>Home</Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link to='/notes' style={inlineStyle}>Notes</Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link to='/users' style={inlineStyle}>Users</Link>
+              </Nav.Link>
+              <Nav.Link>
+                {
+                  user
+                    ? <em>Logged as {user.name}</em>
+                    : (
+                      <Link to='/login' style={inlineStyle}>
+                        Login
+                      </Link>
+                      )
+                }
+              </Nav.Link>
 
-          <Link to='/' style={inlineStyle}>Home</Link>
-          <Link to='/notes' style={inlineStyle}>Notes</Link>
-          <Link to='/users' style={inlineStyle}>Users</Link>
+            </Nav>
+          </Navbar.Collapse>
 
-          {
-          user
-            ? <em>Logged as {user.name}</em>
-            : (
-              <Link to='/login' style={inlineStyle}>
-                Login
-              </Link>
-              )
-        }
-        </header>
+        </Navbar>
 
         <Routes>
           <Route path='/notes/:noteId' element={<NoteDetail notes={notes} />} />
