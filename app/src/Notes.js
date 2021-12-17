@@ -14,7 +14,6 @@ import { useUser } from './hooks/useUser'
 import Login from './Login'
 // import Toggleable from './components/Toggleable'
 // import { Table } from 'react-bootstrap'
-import Table from 'react-bootstrap/Table'
 
 const Notes = () => {
   const { notes, addNote, toggleImportanceOf } = useNotes()
@@ -71,19 +70,15 @@ const Notes = () => {
           : <Login />
       }
 
-      <Table striped>
-        <tbody>
+      <ol>
 
-          {notes.map(note => (
-            <tr key={note.id}>
+        {notes.map(note => (
 
-              <Note toggleImportance={() => toggleImportanceOfNote(note.id)} {...note} />
+          <Note key={note.id} toggleImportance={() => toggleImportanceOfNote(note.id)} {...note} />
 
-            </tr>
-          ))}
+        ))}
 
-        </tbody>
-      </Table>
+      </ol>
 
     </div>
   )
